@@ -17,32 +17,26 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    // ✅ Lấy tất cả với phân trang
     public Page<Post> findAll(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
 
-    // ✅ Tìm kiếm với phân trang
     public Page<Post> search(String keyword, Pageable pageable) {
         return postRepository.findByTitleContainingIgnoreCase(keyword, pageable);
     }
 
-    // ✅ Thêm / Sửa
     public void save(Post post) {
         postRepository.save(post);
     }
 
-    // ✅ Tìm theo ID
     public Optional<Post> findById(Long id) {
         return postRepository.findById(id);
     }
 
-    // ✅ Xóa
     public void delete(Long id) {
         postRepository.deleteById(id);
     }
 
-    // ✅ Nếu vẫn muốn sort thủ công (không dùng Pageable Sort)
     public Page<Post> sortByDate(String order, Pageable pageable) {
         if ("asc".equalsIgnoreCase(order)) {
             return postRepository.findAllByOrderByCreatedAtAsc(pageable);

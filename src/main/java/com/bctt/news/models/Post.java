@@ -1,12 +1,7 @@
 package com.bctt.news.models;
 
 import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Post {
@@ -20,7 +15,10 @@ public class Post {
     @Column(length = 8000)
     private String content;
 
-    private String category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     private LocalDateTime createdAt;
     private String status; // Draft / Published
 
@@ -29,7 +27,6 @@ public class Post {
         this.status = "Draft";
     }
 
-    // getters and setters
     public Long getId() {
         return id;
     }
@@ -54,11 +51,11 @@ public class Post {
         this.content = content;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

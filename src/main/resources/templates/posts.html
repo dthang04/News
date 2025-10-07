@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hệ thống quản lý tin nội bộ</title>
+    <title>Hệ thống quản lý tin bài</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -18,6 +18,7 @@
         .navbar-brand {
             color: white !important;
             font-weight: bold;
+            font-size: 30px;
         }
         footer {
             margin-top: 50px;
@@ -29,14 +30,12 @@
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-        <a class="navbar-brand" href="/posts">📰 Hệ thống quản lý tin nội bộ</a>
+        <a class="navbar-brand" href="/posts">📰 Hệ thống quản lý tin tức</a>
     </div>
 </nav>
 
-<!-- Main content -->
 <div class="container">
 
     <div class="d-flex justify-content-between align-items-center my-4">
@@ -46,7 +45,6 @@
         </a>
     </div>
 
-    <!-- Search + sort -->
     <div class="row mb-3">
         <div class="col-md-6">
             <form th:action="@{/posts}" method="get" class="input-group">
@@ -62,7 +60,6 @@
         </div>
     </div>
 
-    <!-- Table -->
     <div class="card shadow-sm">
         <div class="card-body p-0">
             <table class="table table-hover mb-0">
@@ -82,7 +79,8 @@
                     <td>
                         <a th:href="@{'/posts/view/' + ${post.id}}" th:text="${post.title}" class="fw-bold text-decoration-none"></a>
                     </td>
-                    <td th:text="${post.category}"></td>
+                    <td th:text="${post.category != null ? post.category.name : '—'}"></td>
+
                     <td th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
                     <td>
                         <span th:text="${post.status}"
@@ -104,7 +102,6 @@
         </div>
     </div>
 
-    <!-- Pagination -->
     <nav aria-label="Page navigation" class="mt-3">
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
@@ -123,7 +120,7 @@
 
 </div>
 
-<footer>© 2025 Hệ thống quản lý tin nội bộ</footer>
+<footer>© 2025 Hệ thống quản lý tin tức</footer>
 
 </body>
 </html>
